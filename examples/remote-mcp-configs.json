@@ -1,0 +1,26 @@
+{
+  "genericHttp": {
+    "mcpServers": {
+      "openmemory": {
+        "transport": "http",
+        "url": "https://YOUR-SERVICE.onrender.com/mcp"
+      }
+    }
+  },
+  "genericStreamableHttp": {
+    "mcpServers": {
+      "openmemory": {
+        "transport": "streamable-http",
+        "url": "https://YOUR-SERVICE.onrender.com/mcp"
+      }
+    }
+  },
+  "localFallback": {
+    "mcpServers": {
+      "openmemory": {
+        "command": "npx",
+        "args": ["-y", "openmemory-mcp"]
+      }
+    }
+  }
+}

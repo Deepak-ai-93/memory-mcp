@@ -94,7 +94,7 @@ This repo includes [render.yaml](render.yaml) for public Render deployment. It r
 https://YOUR-SERVICE.onrender.com/mcp
 ```
 
-See [docs/render.md](docs/render.md).
+See [docs/github-to-render-deploy.md](docs/github-to-render-deploy.md) for the full step-by-step deployment and user setup guide.
 
 ## Development
 

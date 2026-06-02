@@ -2,6 +2,8 @@
 
 OpenMemory MCP supports Render web services through Streamable HTTP.
 
+For a full step-by-step walkthrough from GitHub to Render, see [github-to-render-deploy.md](github-to-render-deploy.md).
+
 ## Blueprint Deploy
 
 1. Push this repository to GitHub.
@@ -45,4 +47,17 @@ Use Streamable HTTP transport with:
 
 ```text
 https://YOUR-SERVICE.onrender.com/mcp
+```
+
+Generic client config:
+
+```json
+{
+  "mcpServers": {
+    "openmemory": {
+      "transport": "http",
+      "url": "https://YOUR-SERVICE.onrender.com/mcp"
+    }
+  }
+}
 ```
