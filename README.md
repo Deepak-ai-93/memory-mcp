@@ -2,6 +2,65 @@
 
 OpenMemory MCP is a local-first, self-hosted memory server for MCP-compatible AI coding assistants and agents. It stores project facts, requirements, decisions, issues, tasks, preferences, and architecture notes so tools like Gemini CLI, Claude Code, Cursor, Windsurf, and VS Code agents can share durable context.
 
+## Use The Public MCP Server
+
+Live public endpoint:
+
+```text
+https://openmemory-mcp-8gnp.onrender.com/mcp
+```
+
+Service status page:
+
+```text
+https://openmemory-mcp-8gnp.onrender.com
+```
+
+Health check:
+
+```text
+https://openmemory-mcp-8gnp.onrender.com/health
+```
+
+Use the `/mcp` URL in MCP clients. Opening `/mcp` in a browser may show `406 Not Acceptable`; that is normal because it expects MCP client requests.
+
+Generic remote MCP config:
+
+```json
+{
+  "mcpServers": {
+    "openmemory": {
+      "transport": "http",
+      "url": "https://openmemory-mcp-8gnp.onrender.com/mcp"
+    }
+  }
+}
+```
+
+If your client uses Streamable HTTP naming:
+
+```json
+{
+  "mcpServers": {
+    "openmemory": {
+      "transport": "streamable-http",
+      "url": "https://openmemory-mcp-8gnp.onrender.com/mcp"
+    }
+  }
+}
+```
+
+Example prompts after connecting:
+
+```text
+Remember in project "demo": The backend uses FastMCP and PostgreSQL.
+Search memory in project "demo" for backend stack.
+Add decision in project "demo": Use PostgreSQL because shared agents need durable memory.
+Get project context for "demo".
+```
+
+Public-use note: this public demo server does not include authentication yet. Anyone with the URL can call memory tools, so do not store secrets, private customer data, API keys, or confidential project details.
+
 ## Features
 
 - FastMCP-based MCP server
@@ -91,7 +150,7 @@ docker compose -f docker/docker-compose.yml up --build
 This repo includes [render.yaml](render.yaml) for public Render deployment. It runs the MCP server over Streamable HTTP at `/mcp`.
 
 ```text
-https://YOUR-SERVICE.onrender.com/mcp
+https://openmemory-mcp-8gnp.onrender.com/mcp
 ```
 
 See [docs/github-to-render-deploy.md](docs/github-to-render-deploy.md) for the full step-by-step deployment and user setup guide.
