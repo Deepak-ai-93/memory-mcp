@@ -2,6 +2,8 @@ from datetime import datetime
 
 from fastmcp import FastMCP
 from sqlalchemy.orm import sessionmaker
+from starlette.requests import Request
+from starlette.responses import JSONResponse
 
 from openmemory_mcp.config import Settings, get_settings
 from openmemory_mcp.memory import build_embedding_provider
@@ -32,6 +34,26 @@ def create_mcp(service: MemoryService | None = None, settings: Settings | None =
     settings = settings or get_settings()
     service = service or build_service(settings)
     mcp = FastMCP(settings.server_name)
+
+    @mcp.custom_route("/", methods=["GET"])
+    async def root(request: Request) -> JSONResponse:
+        """Return public service information for browser visits."""
+        base_url = str(request.base_url).rstrip("/")
+        return JSONResponse(
+            {
+                "service": settings.server_name,
+                "status": "running",
+                "transport": settings.transport,
+                "mcp_endpoint": f"{base_url}{settings.http_path}",
+                "health": f"{base_url}/health",
+                "message": "Use the mcp_endpoint URL in an MCP client.",
+            }
+        )
+
+    @mcp.custom_route("/health", methods=["GET"])
+    async def health(request: Request) -> JSONResponse:
+        """Return a lightweight health check response."""
+        return JSONResponse({"status": "healthy", "service": settings.server_name})
 
     @mcp.tool()
     def remember(

@@ -252,6 +252,20 @@ If Render deploy fails, check these first:
 - `OPENMEMORY_DATABASE_URL` is populated from the Render Postgres database.
 - The logs show the server binding to the Render `PORT`.
 
+If the root Render URL opens in a browser:
+
+```text
+https://YOUR-SERVICE.onrender.com
+```
+
+It should return JSON showing the service status, health URL, and MCP endpoint. The actual MCP endpoint remains:
+
+```text
+https://YOUR-SERVICE.onrender.com/mcp
+```
+
+The `/mcp` endpoint is for MCP clients, not normal browser viewing.
+
 If a client cannot connect:
 
 - Confirm the URL ends with `/mcp`.
