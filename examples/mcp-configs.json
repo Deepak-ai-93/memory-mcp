@@ -1,0 +1,37 @@
+{
+  "geminiCli": {
+    "mcpServers": {
+      "openmemory": {
+        "command": "npx",
+        "args": ["-y", "openmemory-mcp"],
+        "env": {
+          "OPENMEMORY_DATABASE_URL": "sqlite:///./openmemory.db"
+        }
+      }
+    }
+  },
+  "claudeCode": {
+    "mcpServers": {
+      "openmemory": {
+        "command": "npx",
+        "args": ["-y", "openmemory-mcp"]
+      }
+    }
+  },
+  "cursor": {
+    "mcpServers": {
+      "openmemory": {
+        "command": "npx",
+        "args": ["-y", "openmemory-mcp"]
+      }
+    }
+  },
+  "windsurf": {
+    "mcpServers": {
+      "openmemory": {
+        "command": "npx",
+        "args": ["-y", "openmemory-mcp"]
+      }
+    }
+  }
+}

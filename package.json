@@ -1,0 +1,35 @@
+{
+  "name": "openmemory-mcp",
+  "version": "0.1.0",
+  "description": "Local-first MCP memory server for AI coding assistants and agents.",
+  "license": "Apache-2.0",
+  "type": "commonjs",
+  "bin": {
+    "openmemory-mcp": "bin/openmemory-mcp.js"
+  },
+  "scripts": {
+    "postinstall": "node scripts/postinstall.js",
+    "check": "node --check bin/openmemory-mcp.js && node --check scripts/postinstall.js"
+  },
+  "files": [
+    "bin",
+    "scripts",
+    "src",
+    "docs",
+    "examples",
+    "README.md",
+    "LICENSE",
+    "pyproject.toml"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "memory",
+    "ai-agents",
+    "fastmcp",
+    "sqlite",
+    "postgresql"
+  ]
+}
