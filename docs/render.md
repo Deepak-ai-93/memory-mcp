@@ -17,6 +17,8 @@ The public MCP endpoint will be:
 https://YOUR-SERVICE.onrender.com/mcp
 ```
 
+In the Render dashboard, click the `openmemory-mcp` web service to find its public `onrender.com` URL, then append `/mcp`. Do not use the `openmemory-mcp-db` database service URL.
+
 ## Manual Web Service
 
 Use these settings if you create the service manually:

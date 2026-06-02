@@ -108,6 +108,26 @@ https://openmemory-mcp.onrender.com/mcp
 
 Replace `openmemory-mcp` with your actual Render service name.
 
+From the Render Overview screen:
+
+1. Click the `openmemory-mcp` web service row.
+2. Open the service `Dashboard` or `Settings` page.
+3. Look for the public service URL near the top of the page. It usually looks like:
+
+```text
+https://openmemory-mcp-xxxx.onrender.com
+```
+
+4. Add `/mcp` at the end.
+
+Your public MCP URL is:
+
+```text
+https://openmemory-mcp-xxxx.onrender.com/mcp
+```
+
+Do not use the database row named `openmemory-mcp-db` as the MCP URL. The database is only for storage; users connect to the `openmemory-mcp` web service.
+
 ## Step 6: Connect an MCP Client
 
 Use Streamable HTTP transport and the `/mcp` endpoint.
