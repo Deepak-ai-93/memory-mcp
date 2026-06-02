@@ -132,6 +132,12 @@ Do not use the database row named `openmemory-mcp-db` as the MCP URL. The databa
 
 Use Streamable HTTP transport and the `/mcp` endpoint.
 
+If `OPENMEMORY_API_KEY` is set on Render, clients must send:
+
+```text
+Authorization: Bearer YOUR_OPENMEMORY_API_KEY
+```
+
 Generic remote MCP config:
 
 ```json
@@ -139,7 +145,10 @@ Generic remote MCP config:
   "mcpServers": {
     "openmemory": {
       "transport": "http",
-      "url": "https://YOUR-SERVICE.onrender.com/mcp"
+      "url": "https://YOUR-SERVICE.onrender.com/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_OPENMEMORY_API_KEY"
+      }
     }
   }
 }
@@ -152,7 +161,10 @@ Some MCP clients use `streamable-http` instead of `http`:
   "mcpServers": {
     "openmemory": {
       "transport": "streamable-http",
-      "url": "https://YOUR-SERVICE.onrender.com/mcp"
+      "url": "https://YOUR-SERVICE.onrender.com/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_OPENMEMORY_API_KEY"
+      }
     }
   }
 }
@@ -191,6 +203,32 @@ Expected behavior:
 - The server stores the memory in Render Postgres.
 - The assistant later calls `search_memory`.
 - The matching memory is returned.
+
+## Add API Key Auth On Render
+
+To protect the public MCP endpoint:
+
+1. Open the `openmemory-mcp` web service in Render.
+2. Go to `Environment`.
+3. Add an environment variable named `OPENMEMORY_API_KEY`.
+4. Use a long random value.
+5. Save changes and redeploy the service.
+
+Example value format:
+
+```text
+om_live_64_random_characters_here
+```
+
+Do not commit the real API key to GitHub. Share it privately with users who should access the MCP server.
+
+After auth is enabled, unauthenticated MCP requests to `/mcp` will be rejected. The root status page and `/health` remain public.
+
+Gemini CLI command with the key:
+
+```bash
+gemini mcp add openmemory https://YOUR-SERVICE.onrender.com/mcp --transport http -H "Authorization: Bearer YOUR_OPENMEMORY_API_KEY"
+```
 
 ## Tools Users Can Call
 
@@ -277,7 +315,7 @@ If a client cannot connect:
 
 For real public production use:
 
-- Add authentication before sharing the endpoint broadly.
+- Set `OPENMEMORY_API_KEY` before sharing the endpoint broadly.
 - Use a paid Render Postgres plan.
 - Avoid storing secrets or private customer data.
 - Add backups and monitoring.

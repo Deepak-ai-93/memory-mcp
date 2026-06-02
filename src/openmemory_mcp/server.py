@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from fastmcp import FastMCP
+from fastmcp.server.auth.providers.jwt import StaticTokenVerifier
 from sqlalchemy.orm import sessionmaker
 from starlette.requests import Request
 from starlette.responses import JSONResponse
@@ -15,6 +16,21 @@ from openmemory_mcp.storage.repositories import (
     SQLAlchemyMemoryRepository,
     SQLAlchemyProjectRepository,
 )
+
+
+def build_auth_provider(settings: Settings) -> StaticTokenVerifier | None:
+    if not settings.api_key:
+        return None
+
+    return StaticTokenVerifier(
+        tokens={
+            settings.api_key: {
+                "client_id": settings.api_key_client_id,
+                "scopes": ["memory:read", "memory:write"],
+            }
+        },
+        required_scopes=["memory:read"],
+    )
 
 
 def build_service(settings: Settings | None = None) -> MemoryService:
@@ -33,7 +49,7 @@ def build_service(settings: Settings | None = None) -> MemoryService:
 def create_mcp(service: MemoryService | None = None, settings: Settings | None = None) -> FastMCP:
     settings = settings or get_settings()
     service = service or build_service(settings)
-    mcp = FastMCP(settings.server_name)
+    mcp = FastMCP(settings.server_name, auth=build_auth_provider(settings))
 
     @mcp.custom_route("/", methods=["GET"])
     async def root(request: Request) -> JSONResponse:
@@ -44,6 +60,7 @@ def create_mcp(service: MemoryService | None = None, settings: Settings | None =
                 "service": settings.server_name,
                 "status": "running",
                 "transport": settings.transport,
+                "auth_required": bool(settings.api_key),
                 "mcp_endpoint": f"{base_url}{settings.http_path}",
                 "health": f"{base_url}/health",
                 "message": "Use the mcp_endpoint URL in an MCP client.",

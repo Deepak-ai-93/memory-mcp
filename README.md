@@ -24,6 +24,12 @@ https://openmemory-mcp-8gnp.onrender.com/health
 
 Use the `/mcp` URL in MCP clients. Opening `/mcp` in a browser may show `406 Not Acceptable`; that is normal because it expects MCP client requests.
 
+The public server requires an API key when `OPENMEMORY_API_KEY` is configured on Render. Pass it as a bearer token:
+
+```text
+Authorization: Bearer YOUR_OPENMEMORY_API_KEY
+```
+
 Generic remote MCP config:
 
 ```json
@@ -31,7 +37,10 @@ Generic remote MCP config:
   "mcpServers": {
     "openmemory": {
       "transport": "http",
-      "url": "https://openmemory-mcp-8gnp.onrender.com/mcp"
+      "url": "https://openmemory-mcp-8gnp.onrender.com/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_OPENMEMORY_API_KEY"
+      }
     }
   }
 }
@@ -44,10 +53,19 @@ If your client uses Streamable HTTP naming:
   "mcpServers": {
     "openmemory": {
       "transport": "streamable-http",
-      "url": "https://openmemory-mcp-8gnp.onrender.com/mcp"
+      "url": "https://openmemory-mcp-8gnp.onrender.com/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_OPENMEMORY_API_KEY"
+      }
     }
   }
 }
+```
+
+Gemini CLI:
+
+```bash
+gemini mcp add openmemory https://openmemory-mcp-8gnp.onrender.com/mcp --transport http -H "Authorization: Bearer YOUR_OPENMEMORY_API_KEY"
 ```
 
 Example prompts after connecting:
@@ -59,7 +77,7 @@ Add decision in project "demo": Use PostgreSQL because shared agents need durabl
 Get project context for "demo".
 ```
 
-Public-use note: this public demo server does not include authentication yet. Anyone with the URL can call memory tools, so do not store secrets, private customer data, API keys, or confidential project details.
+Public-use note: share the API key only with users who should access this memory server. Do not store secrets, private customer data, API keys, or confidential project details unless you operate a private secured deployment.
 
 ## Features
 
@@ -105,6 +123,7 @@ Environment variables use the `OPENMEMORY_` prefix.
 OPENMEMORY_DATABASE_URL=sqlite:///./openmemory.db
 OPENMEMORY_EMBEDDING_PROVIDER=hash
 OPENMEMORY_EMBEDDING_MODEL=text-embedding-3-small
+OPENMEMORY_API_KEY=change-this-for-remote-http
 ```
 
 PostgreSQL example:

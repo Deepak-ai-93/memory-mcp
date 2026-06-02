@@ -20,6 +20,11 @@ class Settings(BaseSettings):
     embedding_model: str = "text-embedding-3-small"
     server_name: str = "OpenMemory MCP"
     default_search_limit: int = 10
+    api_key: str | None = Field(
+        default=None,
+        description="Optional bearer API key required for HTTP MCP requests.",
+    )
+    api_key_client_id: str = "openmemory-public-client"
     transport: Literal["stdio", "http", "streamable-http", "sse"] = Field(
         default_factory=lambda: "http" if os.environ.get("RENDER") == "true" else "stdio"
     )

@@ -39,6 +39,7 @@ OPENMEMORY_HTTP_HOST=0.0.0.0
 OPENMEMORY_HTTP_PATH=/mcp
 OPENMEMORY_DATABASE_URL=postgresql+psycopg://...
 OPENMEMORY_EMBEDDING_PROVIDER=hash
+OPENMEMORY_API_KEY=your-private-api-key
 ```
 
 Render provides the `PORT` environment variable automatically. The server reads it when `OPENMEMORY_HTTP_PORT` is not set.
@@ -60,7 +61,10 @@ Generic client config:
   "mcpServers": {
     "openmemory": {
       "transport": "http",
-      "url": "https://YOUR-SERVICE.onrender.com/mcp"
+      "url": "https://YOUR-SERVICE.onrender.com/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_OPENMEMORY_API_KEY"
+      }
     }
   }
 }

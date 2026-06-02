@@ -3,7 +3,10 @@
     "mcpServers": {
       "openmemory": {
         "transport": "http",
-        "url": "https://openmemory-mcp-8gnp.onrender.com/mcp"
+        "url": "https://openmemory-mcp-8gnp.onrender.com/mcp",
+        "headers": {
+          "Authorization": "Bearer YOUR_OPENMEMORY_API_KEY"
+        }
       }
     }
   },
@@ -11,7 +14,10 @@
     "mcpServers": {
       "openmemory": {
         "transport": "streamable-http",
-        "url": "https://openmemory-mcp-8gnp.onrender.com/mcp"
+        "url": "https://openmemory-mcp-8gnp.onrender.com/mcp",
+        "headers": {
+          "Authorization": "Bearer YOUR_OPENMEMORY_API_KEY"
+        }
       }
     }
   },
