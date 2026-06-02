@@ -80,7 +80,17 @@ mcp = create_mcp()
 
 
 def main() -> None:
-    mcp.run()
+    settings = get_settings()
+    if settings.transport == "stdio":
+        mcp.run()
+        return
+
+    mcp.run(
+        transport=settings.transport,
+        host=settings.http_host,
+        port=settings.http_port,
+        path=settings.http_path,
+    )
 
 
 if __name__ == "__main__":

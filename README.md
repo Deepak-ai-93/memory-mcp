@@ -86,6 +86,16 @@ More examples are in [examples/mcp-configs.json](examples/mcp-configs.json).
 docker compose -f docker/docker-compose.yml up --build
 ```
 
+## Render
+
+This repo includes [render.yaml](render.yaml) for public Render deployment. It runs the MCP server over Streamable HTTP at `/mcp`.
+
+```text
+https://YOUR-SERVICE.onrender.com/mcp
+```
+
+See [docs/render.md](docs/render.md).
+
 ## Development
 
 ```bash

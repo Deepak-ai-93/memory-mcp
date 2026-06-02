@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: openmemory-mcp
+    runtime: python
+    plan: free
+    buildCommand: python -m pip install --upgrade pip && pip install -e ".[postgres]"
+    startCommand: python -m openmemory_mcp
+    envVars:
+      - key: OPENMEMORY_TRANSPORT
+        value: http
+      - key: OPENMEMORY_HTTP_HOST
+        value: 0.0.0.0
+      - key: OPENMEMORY_HTTP_PATH
+        value: /mcp
+      - key: OPENMEMORY_EMBEDDING_PROVIDER
+        value: hash
+      - key: OPENMEMORY_DATABASE_URL
+        fromDatabase:
+          name: openmemory-mcp-db
+          property: connectionString
+
+databases:
+  - name: openmemory-mcp-db
+    plan: free

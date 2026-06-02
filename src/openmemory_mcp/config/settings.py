@@ -1,3 +1,4 @@
+import os
 from functools import lru_cache
 from pathlib import Path
 from typing import Literal
@@ -19,6 +20,14 @@ class Settings(BaseSettings):
     embedding_model: str = "text-embedding-3-small"
     server_name: str = "OpenMemory MCP"
     default_search_limit: int = 10
+    transport: Literal["stdio", "http", "streamable-http", "sse"] = Field(
+        default_factory=lambda: "http" if os.environ.get("RENDER") == "true" else "stdio"
+    )
+    http_host: str = Field(
+        default_factory=lambda: "0.0.0.0" if os.environ.get("RENDER") == "true" else "127.0.0.1"
+    )
+    http_port: int = Field(default_factory=lambda: int(os.environ.get("PORT", "8000")))
+    http_path: str = "/mcp"
 
 
 @lru_cache
