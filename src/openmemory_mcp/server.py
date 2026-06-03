@@ -19,16 +19,20 @@ from openmemory_mcp.storage.repositories import (
 
 
 def build_auth_provider(settings: Settings) -> StaticTokenVerifier | None:
-    if not settings.api_key:
+    api_keys = settings.api_keys
+    if not api_keys:
         return None
 
+    tokens = {
+        key: {
+            "client_id": settings.api_key_client_id,
+            "scopes": ["memory:read", "memory:write"],
+        }
+        for key in api_keys
+    }
+
     return StaticTokenVerifier(
-        tokens={
-            settings.api_key: {
-                "client_id": settings.api_key_client_id,
-                "scopes": ["memory:read", "memory:write"],
-            }
-        },
+        tokens=tokens,
         required_scopes=["memory:read"],
     )
 
@@ -123,6 +127,10 @@ def main() -> None:
     if settings.transport == "stdio":
         mcp.run()
         return
+
+    if not settings.api_keys:
+        print("WARNING: Running in HTTP mode without an API key. Your server is PUBLIC.")
+        print("Set OPENMEMORY_API_KEY to secure your server.")
 
     mcp.run(
         transport=settings.transport,

@@ -24,11 +24,7 @@ https://openmemory-mcp-8gnp.onrender.com/health
 
 Use the `/mcp` URL in MCP clients. Opening `/mcp` in a browser may show `406 Not Acceptable`; that is normal because it expects MCP client requests.
 
-The public server requires an API key when `OPENMEMORY_API_KEY` is configured on Render. Pass it as a bearer token:
-
-```text
-Authorization: Bearer YOUR_OPENMEMORY_API_KEY
-```
+The public server requires an API key when `OPENMEMORY_API_KEY` is configured on Render. Pass it as a bearer token. For more details on configuring and using authentication, see [docs/auth/README.md](docs/auth/README.md).
 
 Generic remote MCP config:
 
