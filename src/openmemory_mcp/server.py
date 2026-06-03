@@ -64,7 +64,7 @@ def create_mcp(service: MemoryService | None = None, settings: Settings | None =
                 "service": settings.server_name,
                 "status": "running",
                 "transport": settings.transport,
-                "auth_required": bool(settings.api_key),
+                "auth_required": bool(settings.api_keys),
                 "mcp_endpoint": f"{base_url}{settings.http_path}",
                 "health": f"{base_url}/health",
                 "message": "Use the mcp_endpoint URL in an MCP client.",
