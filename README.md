@@ -26,6 +26,21 @@ Use the `/mcp` URL in MCP clients. Opening `/mcp` in a browser may show `406 Not
 
 The public server requires an API key when `OPENMEMORY_API_KEY` is configured. You must pass this key as a `Bearer` token in the `Authorization` header.
 
+### Admin Guide: Providing Access to Users
+
+If you are hosting this server and want to give access to other users (e.g., team members), follow these steps:
+
+1.  **Generate a Key:** Create a unique secret string for the user (e.g., `user-xyz-secret-99`).
+2.  **Update Server Config:**
+    *   Go to your Render Dashboard (or your hosting provider).
+    *   Add the new key to the `OPENMEMORY_API_KEY` environment variable, separated by a comma from existing keys.
+    *   *Example:* `OPENMEMORY_API_KEY=your-admin-key,user-xyz-secret-99`
+3.  **Save & Redeploy:** Save the environment variables. Render will automatically redeploy the server with the new keys authorized.
+4.  **Share Securely:** Provide the key to the user. **Important:** Share the key via a secure channel (e.g., password manager, encrypted chat). Do not send it over plain email or Slack.
+5.  **User Setup:** The user can then follow the [Client Configuration Examples](#client-configuration-examples) above to connect their CLI or IDE.
+
+---
+
 ### Client Configuration Examples
 
 #### 1. Gemini CLI
