@@ -22,7 +22,10 @@ class Settings(BaseSettings):
     default_search_limit: int = 10
     api_key: str | None = Field(
         default=None,
-        description="Optional bearer API key(s) required for HTTP MCP requests. Multiple keys can be comma-separated.",
+        description=(
+            "Optional bearer API key(s) required for HTTP MCP requests. "
+            "Multiple keys can be comma-separated."
+        ),
     )
 
     @property

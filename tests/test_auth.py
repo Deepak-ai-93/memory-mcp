@@ -1,8 +1,10 @@
 import os
 import subprocess
 import time
-import requests
+
 import pytest
+import requests
+
 
 @pytest.fixture
 def server_with_auth():
