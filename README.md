@@ -24,45 +24,36 @@ https://openmemory-mcp-8gnp.onrender.com/health
 
 Use the `/mcp` URL in MCP clients. Opening `/mcp` in a browser may show `406 Not Acceptable`; that is normal because it expects MCP client requests.
 
-The public server requires an API key when `OPENMEMORY_API_KEY` is configured on Render. Pass it as a bearer token. For more details on configuring and using authentication, see [docs/auth/README.md](docs/auth/README.md).
+The public server requires an API key when `OPENMEMORY_API_KEY` is configured. You must pass this key as a `Bearer` token in the `Authorization` header.
 
-Generic remote MCP config:
+### Client Configuration Examples
 
+#### 1. Gemini CLI
+Add the server by including the header flag:
+```bash
+gemini mcp add openmemory https://your-render-url.com/mcp --transport http -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+#### 2. Generic MCP Config (JSON)
+For clients like Claude Desktop or IDE plugins, use the `headers` field:
 ```json
 {
   "mcpServers": {
     "openmemory": {
       "transport": "http",
-      "url": "https://openmemory-mcp-8gnp.onrender.com/mcp",
+      "url": "https://your-render-url.com/mcp",
       "headers": {
-        "Authorization": "Bearer YOUR_OPENMEMORY_API_KEY"
+        "Authorization": "Bearer YOUR_API_KEY"
       }
     }
   }
 }
 ```
 
-If your client uses Streamable HTTP naming:
+#### 3. Configuration for Multiple Users
+If you are managing access for a team, you can set `OPENMEMORY_API_KEY=key1,key2,key3` on Render. Each team member can then use their individual key in their client settings.
 
-```json
-{
-  "mcpServers": {
-    "openmemory": {
-      "transport": "streamable-http",
-      "url": "https://openmemory-mcp-8gnp.onrender.com/mcp",
-      "headers": {
-        "Authorization": "Bearer YOUR_OPENMEMORY_API_KEY"
-      }
-    }
-  }
-}
-```
-
-Gemini CLI:
-
-```bash
-gemini mcp add openmemory https://openmemory-mcp-8gnp.onrender.com/mcp --transport http -H "Authorization: Bearer YOUR_OPENMEMORY_API_KEY"
-```
+For more advanced configuration, see the [Authentication Guide](docs/auth/README.md).
 
 Example prompts after connecting:
 
