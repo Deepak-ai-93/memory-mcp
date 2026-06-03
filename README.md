@@ -111,6 +111,45 @@ PostgreSQL example:
 OPENMEMORY_DATABASE_URL=postgresql+psycopg://openmemory:openmemory@localhost:5432/openmemory
 ```
 
+## Management CLI
+
+OpenMemory MCP includes a built-in CLI for manual memory management without needing an AI agent.
+
+Run the CLI using `openmemory-mcp` or `python -m openmemory_mcp`.
+
+### Commands
+
+- **Serve (Default):** Start the MCP server.
+  ```bash
+  openmemory-mcp serve
+  ```
+
+- **Remember:** Store a project memory.
+  ```bash
+  openmemory-mcp remember --project "demo" --content "The backend uses FastAPI." --tags "tech,backend"
+  ```
+
+- **Search:** Search project memories.
+  ```bash
+  openmemory-mcp search --project "demo" --query "backend" --limit 5
+  ```
+
+- **Decisions:** Add or list project decisions.
+  ```bash
+  openmemory-mcp add-decision --project "demo" --decision "Use SQLite" --reason "Simplicity"
+  openmemory-mcp decisions --project "demo"
+  ```
+
+- **Project Context:** Get a summary of the project.
+  ```bash
+  openmemory-mcp context --project "demo"
+  ```
+
+- **Timeline:** View project event history.
+  ```bash
+  openmemory-mcp timeline --project "demo" --limit 20
+  ```
+
 ## MCP Tools
 
 - `remember(project, content, type, tags)` stores a memory.
