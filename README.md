@@ -25,14 +25,14 @@ https://openmemory-mcp-8gnp.onrender.com/health
 Use the `/mcp` URL in MCP clients. Opening `/mcp` in a browser may show `406 Not Acceptable`; that is normal because it expects MCP client requests.
 
 ### Public & Open Source
-OpenMemory MCP is designed to be public and open-source. Anyone can connect to this endpoint and use the memory tools.
+OpenMemory MCP is a public and open-source project. Anyone can connect to the public endpoint and use the memory tools.
 
 ### Client Configuration Examples
 
 #### 1. Gemini CLI
 Add the server:
 ```bash
-gemini mcp add openmemory https://your-render-url.com/mcp --transport http
+gemini mcp add openmemory https://openmemory-mcp-8gnp.onrender.com/mcp --transport http
 ```
 
 #### 2. Generic MCP Config (JSON)
@@ -42,7 +42,7 @@ For clients like Claude Desktop or IDE plugins:
   "mcpServers": {
     "openmemory": {
       "transport": "http",
-      "url": "https://your-render-url.com/mcp"
+      "url": "https://openmemory-mcp-8gnp.onrender.com/mcp"
     }
   }
 }
@@ -57,7 +57,7 @@ Add decision in project "demo": Use PostgreSQL because shared agents need durabl
 Get project context for "demo".
 ```
 
-Public-use note: share the API key only with users who should access this memory server. Do not store secrets, private customer data, API keys, or confidential project details unless you operate a private secured deployment.
+Public-use note: Do not store secrets, private customer data, API keys, or confidential project details on the public server unless you operate a private secured deployment.
 
 ## Features
 
@@ -103,7 +103,6 @@ Environment variables use the `OPENMEMORY_` prefix.
 OPENMEMORY_DATABASE_URL=sqlite:///./openmemory.db
 OPENMEMORY_EMBEDDING_PROVIDER=hash
 OPENMEMORY_EMBEDDING_MODEL=text-embedding-3-small
-OPENMEMORY_API_KEY=change-this-for-remote-http
 ```
 
 PostgreSQL example:
