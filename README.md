@@ -24,51 +24,29 @@ https://openmemory-mcp-8gnp.onrender.com/health
 
 Use the `/mcp` URL in MCP clients. Opening `/mcp` in a browser may show `406 Not Acceptable`; that is normal because it expects MCP client requests.
 
-The public server requires an API key when `OPENMEMORY_API_KEY` is configured. You must pass this key as a `Bearer` token in the `Authorization` header.
-
-### Admin Guide: Providing Access to Users
-
-If you are hosting this server and want to give access to other users (e.g., team members), follow these steps:
-
-1.  **Generate a Key:** Create a unique secret string for the user (e.g., `user-xyz-secret-99`).
-2.  **Update Server Config:**
-    *   Go to your Render Dashboard (or your hosting provider).
-    *   Add the new key to the `OPENMEMORY_API_KEY` environment variable, separated by a comma from existing keys.
-    *   *Example:* `OPENMEMORY_API_KEY=your-admin-key,user-xyz-secret-99`
-3.  **Save & Redeploy:** Save the environment variables. Render will automatically redeploy the server with the new keys authorized.
-4.  **Share Securely:** Provide the key to the user. **Important:** Share the key via a secure channel (e.g., password manager, encrypted chat). Do not send it over plain email or Slack.
-5.  **User Setup:** The user can then follow the [Client Configuration Examples](#client-configuration-examples) above to connect their CLI or IDE.
-
----
+### Public & Open Source
+OpenMemory MCP is designed to be public and open-source. Anyone can connect to this endpoint and use the memory tools.
 
 ### Client Configuration Examples
 
 #### 1. Gemini CLI
-Add the server by including the header flag:
+Add the server:
 ```bash
-gemini mcp add openmemory https://your-render-url.com/mcp --transport http -H "Authorization: Bearer YOUR_API_KEY"
+gemini mcp add openmemory https://your-render-url.com/mcp --transport http
 ```
 
 #### 2. Generic MCP Config (JSON)
-For clients like Claude Desktop or IDE plugins, use the `headers` field:
+For clients like Claude Desktop or IDE plugins:
 ```json
 {
   "mcpServers": {
     "openmemory": {
       "transport": "http",
-      "url": "https://your-render-url.com/mcp",
-      "headers": {
-        "Authorization": "Bearer YOUR_API_KEY"
-      }
+      "url": "https://your-render-url.com/mcp"
     }
   }
 }
 ```
-
-#### 3. Configuration for Multiple Users
-If you are managing access for a team, you can set `OPENMEMORY_API_KEY=key1,key2,key3` on Render. Each team member can then use their individual key in their client settings.
-
-For more advanced configuration, see the [Authentication Guide](docs/auth/README.md).
 
 Example prompts after connecting:
 

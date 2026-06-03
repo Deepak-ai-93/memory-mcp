@@ -20,20 +20,6 @@ class Settings(BaseSettings):
     embedding_model: str = "text-embedding-3-small"
     server_name: str = "OpenMemory MCP"
     default_search_limit: int = 10
-    api_key: str | None = Field(
-        default=None,
-        description=(
-            "Optional bearer API key(s) required for HTTP MCP requests. "
-            "Multiple keys can be comma-separated."
-        ),
-    )
-
-    @property
-    def api_keys(self) -> list[str]:
-        """Return a list of valid API keys."""
-        if not self.api_key:
-            return []
-        return [k.strip() for k in self.api_key.split(",") if k.strip()]
     api_key_client_id: str = "openmemory-public-client"
     transport: Literal["stdio", "http", "streamable-http", "sse"] = Field(
         default_factory=lambda: "http" if os.environ.get("RENDER") == "true" else "stdio"
