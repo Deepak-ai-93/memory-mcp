@@ -24,10 +24,10 @@ openai = ["openai>=1.60"]
 gemini = ["google-genai>=1.0"]
 local = ["sentence-transformers>=3.0"]
 dev = [
-"pytest>=8.0",
-"pytest-asyncio>=0.24",
-"ruff>=0.8",
-"requests>=2.31",
+  "pytest>=8.0",
+  "pytest-asyncio>=0.24",
+  "ruff>=0.8",
+  "requests>=2.31",
 ]
 [project.scripts]
 openmemory-mcp = "openmemory_mcp.server:main"
